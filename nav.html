@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vertical Navigation Bar</title>
+  <style>
+    /* CSS for the navigation bar */
+    .navbar {
+      background-color: #191919;
+      color: #fff;
+      height: 32%;
+      position: fixed;
+      width: 200px;
+      font-family: "A Black lives", sans-serif; /* Changer la police de caractère */
+      text-transform: uppercase; /* Mettre les mots en majuscules */
+    }
+    
+    .navbar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .navbar li {
+      padding: 10px;
+    }
+    
+    .navbar li a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .navbar li a:hover {
+      text-decoration: underline;
+    }
+    
+    /* CSS for the content area */
+    .content {
+      margin-left: 200px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Vertical navigation bar -->
+  <div class="navbar">
+    <ul>
+      <li><a href="https://www.notion.so/Calendrier-492b3d3095874a62857d733d37c03253?pvs=4">Calendrier</a></li>
+      <li><a href="https://www.notion.so/S-ance-du-jour-e379440978ff4b2db0adc89e844a6437?pvs=21">Séance du jour</a></li>
+      <li><a href="https://www.notion.so/Exercices-2e782563a6dc458ca5704908ad0d5aa4?pvs=21">Exercices</a></li>
+      <li><a href="https://www.notion.so/Groupes-Musculaires-a95921616ea54c70b4543e29cd1fd473?pvs=21">Groupes Musculaires</a></li>
+      <li><a href="https://www.notion.so/Historique-efd0c116c4304a68a718277eeffb0130?pvs=21">Historique</a></li>
+    </ul>
+  </div>
+
+  <!-- Content area -->
+  <div class="content">
+    <!-- Add your content here -->
+  </div>
+
+  <!-- JavaScript to highlight the current page in the navigation bar -->
+  <script>
+    var currentPage = window.location.href;
+    var links = document.getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].href === currentPage) {
+        links[i].style.fontWeight = "bold";
+      }
+    }
+  </script>
+</body>
+</html>
