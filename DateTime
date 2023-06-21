@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Heure, Date et Chronomètre</title>
+  <style>
+    /* Styles CSS pour afficher l'heure, la date et le chronomètre de manière sportive */
+    body {
+      background-color: #191919;
+    }
+
+    .clock {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 48px;
+      text-align: center;
+      margin-top: 100px;
+      color: #00ff00;
+      text-shadow: 0px 0px 10px #00ff00;
+    }
+
+    .date {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;
+      color: #00ff00;
+      text-shadow: 0px 0px 5px #00ff00;
+    }
+
+    .chrono {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      text-align: center;
+      margin-top: 50px;
+      color: #00ffff;
+      text-shadow: 0px 0px 10px #00ffff;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #990000;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock" id="clock"></div>
+  <div class="date" id="date"></div>
+  <div class="chrono" id="chrono">00:00:00</div>
+  <div class="btn-container">
+    <button class="btn" id="startBtn">Démarrer</button>
+    <button class="btn" id="resetBtn">Réinitialiser</button>
+  </div>
+
+  <script>
+    // JavaScript code to display current time, date, and stopwatch
+    var startTime;
+    var running = false;
+    var elapsedTime = 0;
+    var timerInterval;
+
+    function displayCurrentDateTime() {
+      var clockElement = document.getElementById("clock");
+      var dateElement = document.getElementById("date");
+      var currentDateTime = new Date();
+      var hours = currentDateTime.getHours();
+      var minutes = currentDateTime.getMinutes();
+      var seconds = currentDateTime.getSeconds();
+      var day = currentDateTime.getDate();
+      var month = currentDateTime.getMonth() + 1; // Month index starts from 0
+      var year = currentDateTime.getFullYear();
+
+      // Add leading zeros if necessary
+      hours = (hours < 10 ? "0" : "") + hours;
+      minutes = (minutes < 10 ? "0" : "") + minutes;
+      seconds = (seconds < 10 ? "0" : "") + seconds;
+      month = (month < 10 ? "0" : "") + month;
+      day = (day < 10 ? "0" : "") + day;
+
+      // Update the clock element with the current time
+      clockElement.textContent = hours + ":" + minutes + ":" + seconds;
+
+      // Update the date element with the current date
+      dateElement.textContent = day + "/" + month + "/" + year;
+    }
+
+    function displayElapsedTime() {
+      var chronoElement = document.getElementById("chrono");
+      var minutes = Math.floor((elapsedTime % 3600000) / 60000);
+      var seconds = Math.floor((elapsedTime % 60000) / 1000);
+      var milliseconds = elapsedTime % 1000;
+
+      // Add leading zeros if necessary
+      minutes = (minutes < 10 ? "0" : "") + minutes;
+      seconds = (seconds < 10 ? "0" : "") + seconds;
+      milliseconds = (milliseconds < 100 ? "0" : "") + milliseconds;
+      milliseconds = (milliseconds < 10 ? "0" : "") + milliseconds;
+
+      // Update the stopwatch element with the elapsed time
+      chronoElement.textContent = minutes + ":" + seconds + ":" + milliseconds;
+    }
+
+    function startTimer() {
+      if (!running) {
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(function () {
+          elapsedTime = Date.now() - startTime;
+          displayElapsedTime();
+        }, 1); // Update every millisecond for more accuracy
+        running = true;
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      elapsedTime = 0;
+      displayElapsedTime();
+      running = false;
+    }
+
+    // Update the current time, date, and start/reset button listeners every second
+    setInterval(function () {
+      displayCurrentDateTime();
+      var startBtn = document.getElementById("startBtn");
+      var resetBtn = document.getElementById("resetBtn");
+      startBtn.addEventListener("click", startTimer);
+      resetBtn.addEventListener("click", resetTimer);
+    }, 1000);
+  </script>
+</body>
+</html>
